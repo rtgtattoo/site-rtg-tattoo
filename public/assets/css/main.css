@@ -1,0 +1,763 @@
+﻿/* Variáveis e Reset */
+:root {
+    --primary: #8B0000; /* Vermelho vinho */
+    --secondary: #500000;
+    --light: #FFFFFF;
+    --dark: #1A1A1A;
+    --gray: #333333;
+    --light-gray: #F5F5F5;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    color: var(--light);
+    background-color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: Mestizzo;
+    src: url('assets/fonts/Mestizo_Font.woff2') format('woff2'),
+        url('assets/fonts/Mestizo_Font.woff') format('woff');
+}
+
+@font-face {
+    font-family: TheSeasons;
+    src: url('assets/fonts/TheSeasonsRegular.woff2') format('woff2'),
+        url('assets/fonts/TheSeasonsRegular.woff') format('woff');
+}
+
+.fonte-the-seasons{
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    margin: 0;
+}
+
+.fonte-mestizo{
+    font-family: Mestizzo, Arial, Helvetica, sans-serif;
+    font-size: 5.5rem;
+    margin: 0;
+    font-weight: normal;
+}
+
+.caracter-especial{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.section {
+    padding: 5rem 0;
+}
+
+.bg-dark {
+    background-color: rgba(10, 10, 10, 0.9);
+}
+
+.section-title {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    color: var(--light);
+}
+
+.section-title::after {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--primary);
+    margin: 10px auto;
+    border-radius: 2px;
+}
+
+.btn {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary);
+    color: var(--light);
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    background: var(--secondary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: var(--light);
+}
+
+.btn-small {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+
+/* Menu */
+.menu-toggle {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--light);
+    font-size: 1.5rem;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+#header-menu {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(26, 26, 26, 0.75);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-items {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.menu-items li {
+    margin: 0 1.2rem;
+}
+
+.menu-link {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.3rem;
+    transition: var(--transition);
+    position: relative;
+    padding: 5px 0;
+}
+
+.menu-link:hover {
+    color: var(--primary);
+}
+
+.menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: var(--transition);
+}
+
+.menu-link:hover::after {
+    width: 100%;
+}
+
+.logo-item {
+    margin: 0 2rem;
+}
+
+#img-logo {
+    width: 130px;
+    height: auto;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+#img-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+}
+
+/* Hero Section */
+#section-principal {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1611095772763-5b0d5adb78f7?q=80&w=1000') center/cover no-repeat;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+.hero-content h1 {
+    letter-spacing: 3px;
+    animation: fadeInDown 1s ease;
+}
+
+.hero-content p {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease 0.5s both;
+}
+
+.hero-content .btn {
+    animation: fadeIn 1s ease 1s both;
+}
+
+/* About Section */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.about-card {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.about-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.about-card i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.about-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-text {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-top: 3rem;
+    font-weight: 700;
+    color: whitesmoke;
+}
+
+/* Team Section */
+#section-team {
+    scroll-margin-top: 2rem;
+}
+
+.team-member {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+    gap: 3rem;
+}
+
+.team-member.reverse {
+    flex-direction: row-reverse;
+}
+
+.member-image {
+    flex: 0.25;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.member-image img {
+    width: 200px;
+    height: auto;
+    display: block;
+    transition: var(--transition);
+}
+
+.member-image:hover img {
+    transform: scale(1.05);
+}
+
+.member-info {
+    flex: 1;
+}
+
+.member-info h3 {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.member-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+}
+
+.member-info p {
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+}
+
+/* Gallery Section */
+#section-gallery {
+    font-family: TheSeasons, Arial, Helvetica, sans-serif;
+    scroll-margin-top: 0.8rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: rgba(139, 0, 0, 0.8);
+    padding: 1.5rem;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-item:hover .gallery-overlay {
+    bottom: 0;
+}
+
+.gallery-more {
+    text-align: center;
+}
+
+/* Form Section */
+#section-orcamento {
+    scroll-margin-top: 2rem;
+}
+
+#form-orcamento {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(30, 30, 30, 0.8);
+    padding: 3rem;
+    border-radius: 15px;
+    border: 1px solid var(--primary);
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: white
+
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--light);
+    border-radius: 5px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+button[type="submit"] {
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    padding: 15px;
+}
+
+/* Address Section */
+#section-address {
+    scroll-margin-top: 2rem;
+}
+
+.address-content {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.address-info {
+    flex: 1;
+}
+
+.address-info p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.address-info i {
+    margin-right: 15px;
+    color: var(--primary);
+    font-size: 1.5rem;
+    min-width: 30px;
+}
+
+.address-map {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    height: 400px;
+}
+
+.address-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Contact Section */
+#section-contact {
+    scroll-margin-top: 2rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.fonte-normal {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.span-endereco{
+    font-size: 1rem;
+}
+
+.contact-method {
+    text-align: center;
+    background: rgba(30, 30, 30, 0.8);
+    padding: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+    transition: var(--transition);
+}
+
+.contact-method:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.contact-method i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.contact-method h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.contact-method p {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+/* Footer */
+#footer-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid var(--primary);
+}
+
+.menu-footer {
+    display: flex;
+    gap: 30px;
+}
+
+.social-icon {
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.15);
+}
+
+.footer-icon {
+    font-size: 2rem;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover .footer-icon {
+    color: var(--primary);
+}
+
+.texto-essencia {
+    font-size: 1.2rem;
+}
+
+.texto-about-card{
+    font-size: 1rem;
+}
+
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .address-content {
+        flex-direction: column;
+    }
+    
+    .team-member, 
+    .team-member.reverse {
+        flex-direction: column;
+    }
+    
+    .member-image {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .menu-items {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        background: var(--dark);
+        flex-direction: column;
+        justify-content: center;
+        width: 70%;
+        transition: var(--transition);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .menu-items.active {
+        right: 0;
+    }
+    
+    .menu-items li {
+        margin: 1.5rem 0;
+    }
+    
+    .logo-item {
+        display: none;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+    
+    .section {
+        padding: 3rem 0;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    #form-orcamento {
+        padding: 1.5rem;
+    }
+}
+
+/* Animações */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#logo-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/images//logo-png.PNG');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(5px);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* Seções com fundo escuro - logo visível */
+.bg-dark, 
+#section-principal {
+    position: relative;
+    z-index: 1;
+}
+
+/* Seções com fundo claro - logo "por trás" */
+#section-about,
+#section-gallery,
+#section-address {
+    position: relative;
+    background-color: #1a1a1a; /* Cor sólida para cobrir */
+    z-index: 2; /* Coloca na frente da logo */
+}
+
+/* Ajuste de opacidade para diferentes seções */
+#section-principal #logo-background {
+    opacity: 0.5;
+    filter: blur(8px);
+}
+
+#section-team #logo-background,
+#section-orcamento #logo-background,
+#section-contact #logo-background {
+    opacity: 0.5;
+    filter: blur(3px);
+}
+

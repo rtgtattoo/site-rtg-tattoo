@@ -1,2 +1,3 @@
-# site-rtg-tattoo
-clonado do repositório de Alex Ritzmann
+
+
+Colocar plano de fundo translucido
