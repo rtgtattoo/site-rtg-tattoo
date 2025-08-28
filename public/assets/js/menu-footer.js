@@ -1,15 +1,11 @@
-
 const menuFooterDiv = document.createElement('div');
 menuFooterDiv.className = 'menu-footer';
-
 
 const isIndexPage1 = window.location.pathname.endsWith('index.html') || 
                    window.location.pathname.endsWith('/');
 
-
 const basePath1 = isIndexPage1 ? '' : '../';
 const pagePath1 = isIndexPage1 ? 'pages/' : '';
-
 
 const menuFooterItems = [
     { 
@@ -29,17 +25,15 @@ const menuFooterItems = [
     }
 ];
 
-
-
 menuFooterItems.forEach(item => {
     const itemFooterContainer = document.createElement('div');
     itemFooterContainer.className = 'social-icon';
     
     const link = document.createElement('a');
     link.href = item.page;
-    link.target = '_blank'; // Abre em nova aba
+    link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.title = item.alt; // Tooltip acessível
+    link.title = item.alt;
 
     if (item.type === 'image') {
         const icon = document.createElement('img');
@@ -53,7 +47,6 @@ menuFooterItems.forEach(item => {
     icon.className = item.icon + ' footer-icon';
     link.appendChild(icon);
     }
-
     
     itemFooterContainer.appendChild(link);
     menuFooterDiv.appendChild(itemFooterContainer);
