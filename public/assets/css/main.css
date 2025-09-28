@@ -889,10 +889,6 @@ body {
         gap: 1rem;
     }
     
-    .gallery-item {
-        height: 250px;
-    }
-    
     #form-orcamento {
         padding: 1.5rem;
     }
@@ -967,4 +963,5 @@ body {
         display: none;
     }
 }
+
 
