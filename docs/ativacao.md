@@ -2,10 +2,12 @@
 
 ## 1. Confirmar contas e preparar a versão
 
-Estado confirmado em 29/10/2026: domínio ativo na conta Cloudflare do estúdio, novo site respondendo HTTP 200 em `https://www.rtgtattoo.com.br/`, MX públicos mantidos na Umbler. OAuth App GitHub criado pelo proprietário na conta `rtgtattoo`; os segredos `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` e `OAUTH_SESSION_SECRET` constam no Worker. O início do login responde HTTP 302 para o GitHub, com callback exato e PKCE S256. Isso ainda não substitui o teste de autorização completo pelas duas contas nem ativa a publicação automática após edições.
+Estado confirmado em 29/10/2026: domínio ativo na conta Cloudflare do estúdio, novo site respondendo HTTP 200 em `https://www.rtgtattoo.com.br/`, MX públicos mantidos na Umbler. OAuth App GitHub criado pelo proprietário na conta `rtgtattoo`; os segredos `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` e `OAUTH_SESSION_SECRET` constam no Worker. O proprietário confirmou por imagem o login no painel com as coleções carregadas. Ainda falta validar separadamente o acesso da segunda conta e a primeira edição de conteúdo.
+
+Publicação automática habilitada: os repository secrets `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` foram cadastrados pelo proprietário no GitHub; a variável `RTG_PUBLISH_ENABLED=true` foi configurada. O workflow de produção foi disparado e concluiu testes, build e deploy com sucesso em https://github.com/rtgtattoo/site-rtg-tattoo/actions/runs/40944371369. A sincronização Google continua desligada até configurar e testar suas credenciais e aprovação de acesso à API.
 
 - Usar uma conta Cloudflare própria do estúdio, conforme escolha do proprietário. A sessão pessoal do EasyService não deve receber a implantação da RTG. O Gmail informado para o estúdio é `studio.rtgtattoo@gmail.com`.
-- Conta do estúdio criada e confirmada pelo proprietário: `3728edb114cfcc55c7131954f95d954f`, fixada em `wrangler.jsonc`. A lista de domínios da conta está vazia; ainda é necessário localizar a configuração DNS atual e preparar a associação do domínio.
+- Conta do estúdio criada e confirmada pelo proprietário: `3728edb114cfcc55c7131954f95d954f`, fixada em `wrangler.jsonc`, com o domínio `rtgtattoo.com.br` ativo.
 - As contas GitHub editoras confirmadas são `alexritzmann` e `rtgtattoo`, já configuradas na lista de acesso. Conferir a permissão de escrita no repositório `rtgtattoo/site-rtg-tattoo`.
 - Salvar as alterações em uma branch e revisar a versão antes de integrá-la à `main`. A Vercel atual pode ter implantação automática da `main`.
 - Executar `npm ci`, `npm test` e `npm run build`. Testar a prévia no celular, os links de contato, todas as fotos e o formulário.
@@ -13,7 +15,7 @@ Estado confirmado em 29/10/2026: domínio ativo na conta Cloudflare do estúdio,
 
 ## 2. Publicar uma prévia na Cloudflare
 
-Prévia implantada em 29/10/2026 na conta do estúdio: `https://rtg-tattoo.rtg-tattoo.workers.dev`. O perfil Wrangler `rtg-tattoo` está vinculado somente ao diretório deste projeto; a autenticação padrão do EasyService não foi substituída. O segredo `OAUTH_SESSION_SECRET` já foi criado no Worker. Ainda faltam as credenciais do OAuth App GitHub, a associação do domínio, o salvamento da nova versão no repositório e a ativação das integrações.
+Prévia implantada em 29/10/2026 na conta do estúdio: `https://rtg-tattoo.rtg-tattoo.workers.dev`, com HTTPS e páginas principais verificados. O perfil Wrangler `rtg-tattoo` está vinculado somente ao diretório deste projeto; a autenticação padrão do EasyService não foi substituída. O site também está publicado no domínio definitivo, e a nova versão está salva na `main` do repositório.
 
 Usar a conta confirmada e executar `npx wrangler deploy` após o build. O nome configurado é `rtg-tattoo`; conferir se já existe um Worker com esse nome antes de publicar, para não sobrescrever outro serviço.
 
@@ -44,13 +46,13 @@ Validar login de ambas as contas, rejeição de contas não autorizadas, salvame
 
 O DNS público consultado em 29/10/2026 já usa servidores Cloudflare. Isso não prova em qual conta está a zona. Confirmar no painel se a conta escolhida tem acesso ao domínio.
 
-Zona criada na conta do estúdio: `a84f14664ebdbe054f19879219501ce3`, ainda pendente de ativação. Novos nameservers atribuídos: `bart.ns.cloudflare.com` e `rafe.ns.cloudflare.com`. Os nameservers anteriores são `hattie.ns.cloudflare.com` e `kianchau.ns.cloudflare.com`. Não substituir os servidores até concluir a revisão dos registros.
+Zona ativa na conta do estúdio: `a84f14664ebdbe054f19879219501ce3`. Nameservers em uso: `bart.ns.cloudflare.com` e `rafe.ns.cloudflare.com`. Os nameservers anteriores eram `hattie.ns.cloudflare.com` e `kianchau.ns.cloudflare.com`. A troca foi salva pelo proprietário na HostGator e confirmada na Cloudflare e na consulta DNS pública.
 
 A varredura importou endereços públicos da rede Cloudflare para `@`, `www`, `ftp` e `webmail`, em vez de revelar os destinos originais. Não tratar esses A/AAAA como configuração validada. Os MX apontam para a Umbler; o SPF público é `v=spf1 include:spf.umbler.com ~all`, e o SRV `_autodiscover._tcp` aponta para `autodiscover224.umbler.com`, porta 443, prioridade/peso 0. A consulta pública de `_dmarc` retornou NXDOMAIN. A autorização OAuth do Wrangler consegue consultar a zona, mas não listar seus registros DNS; não houve alteração desses registros por API.
 
 O proprietário apresentou a lista completa de sete registros no Editor DNS da Umbler: quatro MX e SPF iguais aos públicos, `webmail` como CNAME para `webmail.umbler.com` e um SRV com destino `autodiscover217.umbler.com`. A zona da Umbler não é a autoridade atual: preservar o SRV público funcional `autodiscover224` até esclarecer a diferença. Não havia DKIM na lista apresentada; isso não comprova sua ausência na zona autoritativa anterior. O proprietário substituiu os A/AAAA de `webmail` na conta nova por CNAME `webmail.umbler.com`, DNS only, confirmado por imagem.
 
-Para preparar o site antes da ativação, foram criadas na zona pendente duas rotas Workers para o serviço `rtg-tattoo`: `www.rtgtattoo.com.br/*` e `rtgtattoo.com.br/*`. Ambas foram aceitas pela API e estão persistidas em `wrangler.jsonc`. Antes de trocar nameservers, substituir os A/AAAA importados de `@` e `www` por um AAAA `100::` em cada nome, com proxy ativo. Esse endereço reservado é o placeholder documentado pela Cloudflare para rotas sem servidor de origem; o Worker entrega o site e não consulta esse endereço. Não usar DNS only nesses dois registros. Após ativar a zona e validar o domínio, pode-se migrar essas rotas para Custom Domains, atualizando a configuração versionada no mesmo passo. Não misturar os dois métodos sem revisar DNS e rotas.
+Foram criadas duas rotas Workers para o serviço `rtg-tattoo`: `www.rtgtattoo.com.br/*` e `rtgtattoo.com.br/*`. Ambas foram aceitas pela API e estão persistidas em `wrangler.jsonc`. O proprietário substituiu os A/AAAA importados de `@` e `www` por um AAAA `100::` em cada nome, com proxy ativo, confirmado por imagem. Esse endereço reservado é o placeholder documentado pela Cloudflare para rotas sem servidor de origem; o Worker entrega o site e não consulta esse endereço. Não usar DNS only nesses dois registros. Pode-se migrar essas rotas para Custom Domains futuramente, atualizando a configuração versionada no mesmo passo. Não misturar os dois métodos sem revisar DNS e rotas.
 
 Antes de alterar registros, registrar os destinos atuais de `@` e `www` para permitir reversão e conferir os registros de email. Os MX públicos consultados apontam para Umbler: preservar MX, SPF, DKIM, DMARC e os demais registros de email existentes.
 
