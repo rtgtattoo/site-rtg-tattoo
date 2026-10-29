@@ -37,12 +37,12 @@
     "neighborhood": "América",
     "city": "Joinville",
     "state": "SC",
-    "hours": "Segunda a sábado, das 16h às 23h",
+    "hours": "Terça a domingo, das 14h às 23h. Fechado às segundas-feiras.",
     "maps": "https://www.google.com/maps/place/Studio+RTG+Tattoo/data=!4m2!3m1!1s0x0:0xf6fc5e9f18e7f982"
   },
   "faq": [
     { "question": "Como peço um orçamento?", "answer": "Conte sua ideia pelo formulário ou pelo WhatsApp. Se puder, envie referências, o local do corpo e o tamanho aproximado em centímetros. Com essas informações, conversamos sobre o projeto e o orçamento." },
     { "question": "Posso levar uma ideia ou referência?", "answer": "Sim! Uma imagem, uma frase ou uma história podem ser o ponto de partida. Vamos conversar sobre o que você deseja e adaptar a ideia ao seu projeto." },
-    { "question": "Onde fica a RTG Tattoo?", "answer": "Estamos na Rua Otto Boehm, 834, no bairro América, em Joinville, Santa Catarina. Fale com a gente para combinar seu atendimento." }
+    { "question": "Onde fica a RTG Tattoo?", "answer": "Atendemos somente no nosso estúdio, na Rua Otto Boehm, 834, no bairro América, em Joinville, Santa Catarina. Fale com a gente para combinar seu atendimento." }
   ]
 }

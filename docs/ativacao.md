@@ -83,6 +83,8 @@ Retirar a implantação automática da Vercel após validar a migração. Manter
 
 ## 5. Configurar busca e presença local
 
+Concluído pelo proprietário no Search Console em 29/10/2026: propriedade de domínio verificada pela integração Cloudflare; sitemap processado com 12 páginas encontradas; página inicial já indexada; teste em tempo real confirmou disponibilidade ao Google; solicitação de nova indexação enviada. O Perfil da Empresa existente foi localizado e seu acesso administrativo confirmado. O proprietário confirmou atendimento somente no estúdio, de terça a domingo, das 14h às 23h, com segunda-feira fechada. Esses dados foram atualizados em `content/site.json`; aplicar os mesmos horários no Perfil da Empresa e remover a área de cobertura, mantendo o endereço físico visível.
+
 - Adicionar/verificar o domínio no Google Search Console, usando a conta do estúdio.
 - Enviar `https://www.rtgtattoo.com.br/sitemap.xml` e inspecionar a página inicial e uma página do portfólio.
 - Validar os dados estruturados no Rich Results Test do Google.
