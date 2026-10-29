@@ -60,6 +60,8 @@ export async function build() {
     pictures.set(source,{src:variants[1].src,srcset:unique.map(v=>`${v.src} ${v.width}w`).join(', '),width:dimensions.width,height:dimensions.height,social:variants[2].src});
   }
   await writeFile(path.join(output,'index.html'),render(site,works,pictures));
+  await mkdir(path.join(output,'portfolio'),{recursive:true});
+  await writeFile(path.join(output,'portfolio/index.html'),render(site,works,pictures,null,true));
   for(const work of works) {
     const dir=path.join(output,'portfolio',work.slug);
     await mkdir(dir,{recursive:true});
@@ -70,7 +72,7 @@ export async function build() {
   await writeFile(path.join(output,'admin/config.json'),JSON.stringify(adminConfig,null,2));
   // A demonstração carrega somente conteúdo publicado, nunca rascunhos.
   await writeFile(path.join(output,'admin/demo-content.json'),JSON.stringify({site,works}));
-  const urls=['/',...works.map(w=>`/portfolio/${w.slug}/`),'/privacidade/'];
+  const urls=['/','/portfolio/',...works.map(w=>`/portfolio/${w.slug}/`),'/privacidade/'];
   const sitemap=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${urls.map(url=>{
     const w=works.find(w=>url===`/portfolio/${w.slug}/`);
     return `\n<url><loc>${ORIGIN+url}</loc>${w?`<image:image><image:loc>${ORIGIN+pictures.get(w.image).social}</image:loc></image:image>`:''}</url>`;

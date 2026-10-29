@@ -1,5 +1,5 @@
 {
-  "slug": "mandala", "title": "Mandala ornamental", "published": true, "order": 4,
+  "slug": "mandala", "title": "Mandala ornamental", "published": true, "featured": true, "order": 4,
   "category": "Ornamental", "image": "/assets/images/braço.jpg",
   "alt": "Tatuagem de mandala ornamental em preto no ombro e na parte superior do braço",
   "description": "Uma composição ornamental com mandala e padrões em preto, acompanhando o ombro e a parte superior do braço. Trabalho do portfólio RTG Tattoo, em Joinville.",

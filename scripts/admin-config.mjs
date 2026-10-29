@@ -35,6 +35,7 @@ export const adminConfig = {
     editor:{preview:false},fields:[
       field('title','Nome do trabalho'),field('slug','Endereço da página (não altere após publicar)','string',{hint:'Ex.: borboleta-geometrica. Use letras minúsculas, números e hífens.',pattern:['^[a-z0-9]+(-[a-z0-9]+)*$','Use letras minúsculas, números e hífens.']}),
       field('published','Exibir no site','boolean',{default:false}),field('order','Ordem na galeria','number',{default:10,value_type:'int',min:0}),
+      field('featured','Destaque na página inicial','boolean',{default:false,required:false,hint:'A página inicial mostra até 12 destaques, seguindo a Ordem na galeria (menores números primeiro). Os demais continuam no portfólio completo.'}),
       field('category','Categoria','select',{options:['Ilustração','Botânica','Escrita','Ornamental']}),image('image','Foto da tatuagem'),
       field('alt','Descrição visual da foto','string',{hint:'Descreva a imagem para quem não consegue vê-la.'}),
       text('description','Sobre o trabalho'),

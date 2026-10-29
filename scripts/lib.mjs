@@ -28,5 +28,6 @@ export function validateWork(work) {
   for (const field of ['title', 'category', 'image', 'alt', 'description']) required(work[field], field);
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(work.slug)) throw Error(`Slug inválido: ${work.slug}`);
   if (typeof work.published !== 'boolean') throw Error(`Informe publicado em ${work.slug}`);
+  if (work.featured !== undefined && typeof work.featured !== 'boolean') throw Error(`Destaque inválido: ${work.slug}`);
   if (!Number.isFinite(work.order)) throw Error(`Ordem inválida: ${work.slug}`);
 }

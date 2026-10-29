@@ -41,6 +41,8 @@ Após configurar o acesso, abra https://www.rtgtattoo.com.br/admin/ e entre com 
 
 O painel usa o fluxo editorial do Decap: salvar rascunho, revisar e publicar. Para um novo trabalho aparecer, marque também **Exibir no site**. Após publicar, aguarde o fluxo de implantação terminar no GitHub Actions. Não altere o endereço de uma tatuagem já publicada sem criar um redirecionamento para o endereço anterior.
 
+Marque **Destaque na página inicial** para selecionar os trabalhos da home: aparecem até 12, seguindo **Ordem na galeria** (menores números primeiro). Novos trabalhos começam sem destaque. Todos os trabalhos publicados ficam em `/portfolio/`, com filtros por categoria e botão **Carregar mais** em lotes de 12. Trocar a categoria reinicia o lote. Sem JavaScript, o portfólio completo continua acessível no HTML, com todos os trabalhos e links individuais. A opção de destaque é independente da postagem no Google.
+
 Imagens enviadas são arquivos públicos do site. Não envie documentos pessoais ou imagens confidenciais. A marcação de rascunho controla a presença do trabalho nas páginas e no sitemap; não torna os arquivos de mídia privados.
 
 A demonstração em `/admin/demo.html` usa o backend oficial em memória do Decap: não escreve no GitHub e perde as alterações ao recarregar. O painel real não faz login em origens de prévia para evitar alterações acidentais na produção.

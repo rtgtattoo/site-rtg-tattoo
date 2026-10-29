@@ -1,5 +1,5 @@
 {
-  "slug": "homenagem", "title": "Um gesto em comum", "published": true, "order": 8,
+  "slug": "homenagem", "title": "Um gesto em comum", "published": true, "featured": true, "order": 8,
   "category": "Ilustração", "image": "/assets/images/homenagem positivo.jpg",
   "alt": "Três tatuagens de mãos fazendo sinal de positivo, acompanhadas de pequenas escritas",
   "description": "Um mesmo gesto em três tatuagens: uma forma de compartilhar uma lembrança na pele. Trabalho de homenagem do portfólio RTG Tattoo, em Joinville.",

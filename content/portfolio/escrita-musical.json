@@ -1,5 +1,5 @@
 {
-  "slug": "escrita-musical", "title": "Música na pele", "published": true, "order": 5,
+  "slug": "escrita-musical", "title": "Música na pele", "published": true, "featured": true, "order": 5,
   "category": "Escrita", "image": "/assets/images/Escrita música.jpg",
   "alt": "Tatuagem com frase em inglês em letras pequenas na região do peito",
   "description": "Uma frase em letras pequenas que transforma uma referência musical em uma marca pessoal. Tatuagem de escrita do portfólio RTG Tattoo, em Joinville.",

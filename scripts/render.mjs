@@ -2,22 +2,22 @@ import { ORIGIN, escape as e, jsonScript, paragraphs, whatsapp } from './lib.mjs
 
 const arrow = '<span aria-hidden="true">↗</span>';
 const link = (url, text, cls='button') => `<a class="${cls}" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(text)} ${arrow}</a>`;
-export function render(site, works, pictures, work = null) {
+export function render(site, works, pictures, work = null, portfolio = false) {
   const picture = (src, alt, cls='', eager=false) => {
     const p = pictures.get(src);
     return `<img class="${cls}" src="${p.src}" srcset="${p.srcset}" sizes="(max-width: 700px) 100vw, 50vw" width="${p.width}" height="${p.height}" alt="${e(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
   };
   const c = site.contact;
-  const path = work ? `/portfolio/${work.slug}/` : '/';
-  const title = work ? `${work.title} | RTG Tattoo em ${c.city}` : site.seoTitle;
-  const description = work ? work.description : site.seoDescription;
+  const path = work ? `/portfolio/${work.slug}/` : portfolio ? '/portfolio/' : '/';
+  const title = work ? `${work.title} | RTG Tattoo em ${c.city}` : portfolio ? `Portfólio de tatuagens em ${c.city} | RTG Tattoo` : site.seoTitle;
+  const description = work ? work.description : portfolio ? site.portfolioText : site.seoDescription;
   const socialImage = pictures.get(work ? work.image : site.hero.image).social;
   const schema = {
     '@context': 'https://schema.org', '@graph': [
       {'@type':'TattooParlor', '@id':`${ORIGIN}/#studio`, name:site.name, url:ORIGIN+'/', image:ORIGIN+socialImage, telephone:'+'+c.whatsapp, email:c.email,
         address:{'@type':'PostalAddress', streetAddress:`${c.street} - ${c.neighborhood}`, addressLocality:c.city, addressRegion:c.state,addressCountry:'BR'}, sameAs:[c.instagram], hasMap:c.maps},
       work ? {'@type':'ImageObject', '@id':ORIGIN+path+'#image',name:work.title, description:work.description, contentUrl:ORIGIN+socialImage, creator:{'@id':ORIGIN+'/#studio'}} :
-        {'@type':'CollectionPage',name:site.portfolioTitle, url:ORIGIN+'/#section-gallery', about:{'@id':ORIGIN+'/#studio'}}
+        {'@type':'CollectionPage',name:site.portfolioTitle, url:ORIGIN+(portfolio ? '/portfolio/' : '/#section-gallery'), about:{'@id':ORIGIN+'/#studio'}}
     ]
   };
   const header = `<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -30,13 +30,15 @@ export function render(site, works, pictures, work = null) {
   let body;
   if (work) {
     const others = works.filter(w=>w.slug !== work.slug).slice(0,3);
-    body = `<main id="conteudo"><section class="wrap work-page"><a class="back-link" href="/#section-gallery">← Voltar ao portfólio</a><div class="work-layout">${picture(work.image,work.alt,'work-full',true)}<div><p class="eyebrow">${e(work.category)} · ${e(c.city)}</p><h1>${e(work.title)}</h1>${paragraphs(work.description)}<p class="muted">Um trabalho do portfólio da ${e(site.name)}. Cada novo projeto é pensado a partir da sua ideia.</p>${link(whatsapp(site,`Olá! Vi o trabalho “${work.title}” no site e gostaria de conversar sobre uma tatuagem.`),'Quero conversar sobre uma ideia')}<a class="text-link" href="/#section-address">Conheça nosso estúdio em ${e(c.city)} ${arrow}</a></div></div></section><section class="wrap section"><p class="eyebrow">Mais inspirações</p><h2>Outras histórias na pele.</h2><div class="gallery-grid related">${others.map(w=>card(w,picture)).join('')}</div></section></main>`;
+    body = `<main id="conteudo"><section class="wrap work-page"><a class="back-link" href="/portfolio/">← Voltar ao portfólio</a><div class="work-layout">${picture(work.image,work.alt,'work-full',true)}<div><p class="eyebrow">${e(work.category)} · ${e(c.city)}</p><h1>${e(work.title)}</h1>${paragraphs(work.description)}<p class="muted">Um trabalho do portfólio da ${e(site.name)}. Cada novo projeto é pensado a partir da sua ideia.</p>${link(whatsapp(site,`Olá! Vi o trabalho “${work.title}” no site e gostaria de conversar sobre uma tatuagem.`),'Quero conversar sobre uma ideia')}<a class="text-link" href="/#section-address">Conheça nosso estúdio em ${e(c.city)} ${arrow}</a></div></div></section><section class="wrap section"><p class="eyebrow">Mais inspirações</p><h2>Outras histórias na pele.</h2><div class="gallery-grid related">${others.map(w=>card(w,picture)).join('')}</div></section></main>`;
+  } else if (portfolio) {
+    body = `<main id="conteudo"><section class="section wrap portfolio-page" id="section-gallery"><a class="back-link" href="/">← Voltar ao site</a><div class="section-heading"><div><p class="eyebrow">Nosso portfólio completo</p><h1>${e(site.portfolioTitle)}</h1></div><p>${e(site.portfolioText)}</p></div>${gallery(works,picture,true)}<div class="section-end">${link(c.instagram,'Mais histórias no Instagram','text-link')}</div></section></main>`;
   } else {
-    const categories = [...new Set(works.map(w=>w.category))];
+    const featured = works.filter(w=>w.featured === true).slice(0,12);
     body = `<main id="conteudo">
       <section class="hero" id="section-principal"><div class="hero-copy"><p class="eyebrow">${e(site.hero.eyebrow)}</p><h1>${e(site.hero.title).replace(/\n/g,'<br>')}</h1><p class="hero-text">${e(site.hero.text)}</p><div class="hero-actions"><a href="#section-orcamento" class="button">${e(site.hero.button)} ${arrow}</a><a class="text-link" href="#section-gallery">Conheça nosso trabalho ↓</a></div><div class="hero-footnote"><span class="red-star" aria-hidden="true">✳</span><span>Arte que marca histórias.<br>RTG Tattoo, ${e(c.city)}.</span></div></div><div class="hero-photo">${picture(site.hero.image,site.hero.imageAlt,'',true)}<span class="photo-label">FEITO NA RTG · FEITO PARA VOCÊ</span><span class="hero-stamp" aria-hidden="true">RTG<br><small>TATTOO</small></span></div></section>
       <div class="ticker" aria-hidden="true"><div class="wrap ticker-inner"><span>IDEIAS QUE GANHAM VIDA</span>✳<span>HISTÓRIAS QUE FICAM</span>✳<span>ARTE NA PELE</span>✳<span>FEITO EM JOINVILLE</span></div></div>
-      <section class="section wrap" id="section-gallery"><div class="section-heading"><div><p class="eyebrow">01 / Nosso portfólio</p><h2>${e(site.portfolioTitle)}</h2></div><p>${e(site.portfolioText)}</p></div><div class="filters" role="group" aria-label="Filtrar trabalhos"><button type="button" class="filter active" data-filter="all" aria-pressed="true">Todos os trabalhos</button>${categories.map(cat=>`<button type="button" class="filter" data-filter="${e(cat)}" aria-pressed="false">${e(cat)}</button>`).join('')}</div><p class="sr-only" role="status" id="gallery-status"></p><div class="gallery-grid">${works.map(w=>card(w,picture)).join('')}</div><div class="section-end">${link(c.instagram,'Mais histórias no Instagram','text-link')}</div></section>
+      <section class="section wrap" id="section-gallery"><div class="section-heading"><div><p class="eyebrow">01 / Nosso portfólio</p><h2>${e(site.portfolioTitle)}</h2></div><p>${e(site.portfolioText)}</p></div>${gallery(featured,picture)}<div class="section-end"><a class="button" href="/portfolio/">Ver portfólio completo ${arrow}</a></div></section>
       <section class="about-section" id="section-about"><div class="wrap about-layout"><div class="about-photo">${picture(site.about.image,site.about.imageAlt)}<span class="photo-label">ARTE, CUIDADO E CONEXÃO.</span></div><div class="about-copy"><p class="eyebrow">02 / O estúdio</p><h2>${e(site.about.title).replace(/\n/g,'<br>')}</h2>${paragraphs(site.about.text)}<a href="#section-orcamento" class="text-link">Vamos nos conhecer ${arrow}</a></div></div><div class="wrap team-grid" id="section-team">${site.about.team.map(m=>`<article class="team-card">${picture(m.image,m.name)}<div><p class="eyebrow">${e(m.role)}</p><h3>${e(m.name)}</h3><p>${e(m.bio)}</p></div></article>`).join('')}</div></section>
       ${site.banner.enabled ? `<section class="banner"><div class="wrap"><span aria-hidden="true">✳</span><h2>${e(site.banner.text)}</h2><a href="#section-orcamento" class="button button-outline">${e(site.banner.button)} ${arrow}</a></div></section>` : ''}
       <section class="section wrap budget-layout" id="section-orcamento"><div><p class="eyebrow">03 / Seu próximo capítulo</p><h2>Da sua ideia<br>ao primeiro traço.</h2><p>Conte o que você imagina. Vamos conversar sobre possibilidades, detalhes e o seu orçamento.</p><ol class="steps"><li><span>01</span>Compartilhe sua ideia e referências.</li><li><span>02</span>Conversamos sobre tamanho e local do corpo.</li><li><span>03</span>Combinamos os próximos passos pelo WhatsApp.</li></ol>${link(whatsapp(site),'Prefiro falar direto no WhatsApp','text-link')}</div><form id="form-orcamento" data-phone="${e(c.whatsapp)}"><div class="form-heading"><h3>Vamos criar algo seu?</h3><span aria-hidden="true">↗</span></div><label for="nome">Como podemos te chamar?</label><input id="nome" name="nome" autocomplete="name" placeholder="Seu nome" maxlength="100" required><div class="form-row"><div><label for="local">Local do corpo</label><input id="local" name="local" placeholder="Ex.: antebraço" maxlength="100"></div><div><label for="tamanho">Tamanho aproximado</label><input id="tamanho" name="tamanho" placeholder="Ex.: 10 cm" maxlength="50"></div></div><label for="descricao">Qual é a sua ideia?</label><textarea id="descricao" name="descricao" rows="4" placeholder="Uma história, um desenho, um significado…" maxlength="2500" required></textarea><label for="referencia">Link de referência <span class="muted">(opcional)</span></label><input id="referencia" name="referencia" placeholder="Cole um link ou descreva sua referência" maxlength="1000"><p class="form-note">Ao continuar, o WhatsApp será aberto com sua mensagem. Revise e envie por lá. Seus dados não são armazenados por este formulário. <a href="/privacidade/">Privacidade</a>.</p><button type="submit" class="button">Continuar no WhatsApp ${arrow}</button><p id="form-status" role="status"></p></form></section>
@@ -48,6 +50,11 @@ export function render(site, works, pictures, work = null) {
 }
 function card(work, picture) {
   return `<article class="gallery-card" data-category="${e(work.category)}"><a href="/portfolio/${work.slug}/" aria-label="Ver ${e(work.title)}"><div class="card-image">${picture(work.image,work.alt)}<span class="card-arrow" aria-hidden="true">↗</span></div><div class="card-caption"><h3>${e(work.title)}</h3><span>${e(work.category)}</span></div></a></article>`;
+}
+
+function gallery(works, picture, paginated = false) {
+  const categories = [...new Set(works.map(w=>w.category))];
+  return `<div data-gallery${paginated ? ' data-page-size="12"' : ''}><div class="filters" role="group" aria-label="Filtrar trabalhos"><button type="button" class="filter active" data-filter="all" aria-pressed="true">Todos os trabalhos</button>${categories.map(cat=>`<button type="button" class="filter" data-filter="${e(cat)}" aria-pressed="false">${e(cat)}</button>`).join('')}</div><p class="gallery-status muted" role="status" data-gallery-status></p><div class="gallery-grid" id="portfolio-grid">${works.map(w=>card(w,picture)).join('')}</div>${paginated ? '<div class="section-end"><button class="button" type="button" data-load-more aria-controls="portfolio-grid" hidden>Carregar mais <span aria-hidden="true">↓</span></button></div>' : ''}</div>`;
 }
 
 export function privacy(site) {
