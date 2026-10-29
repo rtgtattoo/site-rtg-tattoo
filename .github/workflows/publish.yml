@@ -1,0 +1,37 @@
+name: Publicar site e sincronizar Google
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+concurrency:
+  group: rtg-production
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  publish:
+    if: vars.RTG_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Publicar na Cloudflare
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Sincronizar trabalhos selecionados com o Google
+        if: vars.RTG_GOOGLE_ENABLED == 'true'
+        run: node scripts/sync-google.mjs
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_LOCATION: ${{ vars.GOOGLE_LOCATION }}

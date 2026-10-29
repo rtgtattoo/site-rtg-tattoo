@@ -1,0 +1,10 @@
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+  X-Frame-Options: SAMEORIGIN
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+/media/*
+  Cache-Control: public, max-age=31536000, immutable

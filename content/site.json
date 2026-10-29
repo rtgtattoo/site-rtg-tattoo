@@ -1,0 +1,48 @@
+{
+  "name": "RTG Tattoo",
+  "seoTitle": "RTG Tattoo | Estúdio de tatuagem em Joinville",
+  "seoDescription": "Tatuagem em Joinville com arte e significado. Conheça o portfólio da RTG Tattoo, no bairro América, e converse com a gente sobre sua próxima tattoo.",
+  "hero": {
+    "eyebrow": "Estúdio de tatuagem · Joinville, SC",
+    "title": "Sua história.\nNossa arte.\nNa sua pele.",
+    "text": "Uma ideia, uma lembrança, um novo começo. Transformamos o que importa para você em uma tatuagem feita para ser sua.",
+    "image": "/assets/images/borboleta.jpg",
+    "imageAlt": "Tatuagem de borboleta em traços pretos realizada na RTG Tattoo",
+    "button": "Vamos criar sua tattoo"
+  },
+  "banner": {
+    "enabled": true,
+    "text": "Sua próxima história começa com uma conversa.",
+    "button": "Pedir um orçamento"
+  },
+  "portfolioTitle": "Histórias que viraram arte.",
+  "portfolioText": "Trabalhos reais, feitos no nosso estúdio. Encontre uma inspiração e traga a sua ideia.",
+  "about": {
+    "title": "Antes do traço,\numa conexão.",
+    "text": "Somos a Gi e o Alex, parceiros na vida e na RTG Tattoo. Nosso estúdio no bairro América, em Joinville, nasceu do encontro entre arte, cuidado e histórias que merecem ficar.\n\nAqui, cada projeto começa com escuta. Queremos conhecer sua ideia, entender o significado e construir uma tatuagem que tenha a sua identidade.",
+    "image": "/assets/images/fundo.jpg",
+    "imageAlt": "Giovanna trabalhando em uma tatuagem no estúdio RTG Tattoo",
+    "team": [
+      { "name": "Giovanna", "role": "Arte & tatuagem", "image": "/assets/images/gi.jpg", "bio": "A arte faz parte da minha vida desde pequena. Em 2021, tive minha primeira experiência com a tatuagem e entendi que essa arte fazia parte do meu propósito." },
+      { "name": "Alex", "role": "Gestão & atendimento", "image": "/assets/images/ALEX.jpg", "bio": "Parceiro da Gi e responsável pela gestão do estúdio. Cuido dos processos para que cada ideia encontre espaço e o trabalho da nossa tatuadora aconteça com atenção aos detalhes." }
+    ]
+  },
+  "contact": {
+    "whatsapp": "5547997473919",
+    "phoneLabel": "(47) 99747-3919",
+    "email": "studio@rtgtattoo.com.br",
+    "instagram": "https://www.instagram.com/studio.rtgtattoo/",
+    "instagramLabel": "@studio.rtgtattoo",
+    "street": "Rua Otto Boehm, 834",
+    "neighborhood": "América",
+    "city": "Joinville",
+    "state": "SC",
+    "hours": "Segunda a sábado, das 16h às 23h",
+    "maps": "https://www.google.com/maps/place/Studio+RTG+Tattoo/data=!4m2!3m1!1s0x0:0xf6fc5e9f18e7f982"
+  },
+  "faq": [
+    { "question": "Como peço um orçamento?", "answer": "Conte sua ideia pelo formulário ou pelo WhatsApp. Se puder, envie referências, o local do corpo e o tamanho aproximado em centímetros. Com essas informações, conversamos sobre o projeto e o orçamento." },
+    { "question": "Posso levar uma ideia ou referência?", "answer": "Sim! Uma imagem, uma frase ou uma história podem ser o ponto de partida. Vamos conversar sobre o que você deseja e adaptar a ideia ao seu projeto." },
+    { "question": "Onde fica a RTG Tattoo?", "answer": "Estamos na Rua Otto Boehm, 834, no bairro América, em Joinville, Santa Catarina. Fale com a gente para combinar seu atendimento." }
+  ]
+}

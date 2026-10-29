@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rtg-tattoo",
+  "account_id": "3728edb114cfcc55c7131954f95d954f",
+  "main": "worker/index.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "www.rtgtattoo.com.br/*", "zone_id": "a84f14664ebdbe054f19879219501ce3" },
+    { "pattern": "rtgtattoo.com.br/*", "zone_id": "a84f14664ebdbe054f19879219501ce3" }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "SITE_ORIGIN": "https://www.rtgtattoo.com.br",
+    "GITHUB_REPO": "rtgtattoo/site-rtg-tattoo",
+    "GITHUB_SCOPE": "public_repo",
+    "ALLOWED_GITHUB_USERS": "alexritzmann,rtgtattoo"
+  }
+}

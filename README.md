@@ -1,159 +1,60 @@
-# RTG Tattoo 🎨🤖
+# RTG Tattoo
 
-Projeto inovador de **simulação de tatuagens** usando **inteligência artificial** e **realidade aumentada**.  
-Esta aplicação permite visualizar como uma tatuagem ficaria em seu corpo antes de fazê-la permanentemente.
+Site do estúdio RTG Tattoo, em Joinville, com portfólio, orçamento por WhatsApp e painel Decap CMS. O conteúdo é versionado no repositório `rtgtattoo/site-rtg-tattoo`.
 
----
+## Identidade visual
 
-## 📋 Sobre o Projeto
-O **RTG Tattoo** é uma aplicação web que utiliza:
+As letras **RTG** da logo devem sempre usar a fonte **Mestizo**, disponível em `public/assets/fonts/Mestizo_Font.woff2` e `.woff`. Essa regra se aplica à marca no cabeçalho e no rodapé, aos selos e às marcas d'água, inclusive em futuras alterações. O complemento “Tattoo” e os textos corridos mantêm suas fontes próprias. Não substituir a Mestizo por The Seasons nas letras da logo.
 
-- 🕶 **Realidade Aumentada** para visualização em tempo real  
-- 🤖 **Inteligência Artificial** para adaptação perfeita à curvatura do corpo  
-- 🖼 **Processamento de Imagem** para aplicação realista de tatuagens  
-- ⚡ **Streamlit** para uma interface simples e amigável  
+## Desenvolvimento
 
----
+Requer Node.js 22 ou superior.
 
-## ✨ Funcionalidades Principais
-- 📸 Upload de imagens do corpo e designs de tatuagem  
-- 🎯 Posicionamento preciso da tatuagem na área desejada  
-- 🔄 Ajuste de **tamanho**, **rotação** e **transparência**  
-- 👁 Visualização realista com adaptação à curvatura da pele  
-- 💾 Download do resultado final  
-
----
-
-## 🚀 Como Executar
-
-### Pré-requisitos
-```bash
-- Python **3.8+**  
-- `pip`
-```
-### Instalação
-Clone o repositório:
-
-Instale as dependências:
-```bash
-pip install -r requirements.txt
+```sh
+npm ci
+npm run dev
 ```
 
-Execute a aplicação:
-```bash
-streamlit run main.py
+Abra http://127.0.0.1:4173. O comando gera `dist/` antes de iniciar o servidor. Depois de alterar conteúdo ou templates, execute `npm run build` para atualizar a prévia. O servidor local entrega os arquivos de `dist/`.
+
+```sh
+npm test
+npm run build
 ```
 
-Acesse no navegador:
-```bash
-http://localhost:8501
-```
----
-## 🛠 Tecnologias Utilizadas
+## Arquivos principais
 
-Streamlit
- - Interface web
+- `content/site.json`: textos, fotos de banners, equipe, contato e dúvidas frequentes.
+- `content/portfolio/*.json`: trabalhos individuais, categorias, ordem e opção de postagem no Google.
+- `scripts/render.mjs`: templates da página inicial e dos trabalhos.
+- `scripts/build.mjs`: geração de páginas, imagens WebP responsivas, sitemap e dados para integração.
+- `scripts/admin-config.mjs`: campos do painel e repositório conectado.
+- `public/admin/`: painel e demonstração em memória.
+- `worker/index.mjs`: autenticação GitHub para o Decap CMS na Cloudflare.
+- `scripts/sync-google.mjs`: integração com postagens do Perfil da Empresa, ativada separadamente.
 
-OpenCV
- - Processamento de imagem
+`dist/` é gerado e não deve ser editado nem versionado. O `public/index.html` e os arquivos `main.css`, `main.js` e `menu-footer.js` são da versão anterior; não são usados pela nova página inicial, gerada pelo build. O build mantém as fotos originais para compatibilidade; a nova interface utiliza versões WebP em `/media/`.
 
-NumPy
- - Manipulação de arrays
+## Edição pelo painel
 
-Pillow
- - Processamento de imagem
+Após configurar o acesso, abra https://www.rtgtattoo.com.br/admin/ e entre com uma das contas GitHub permitidas. Cada pessoa precisa de permissão de escrita no repositório. A lista de contas autorizadas no servidor restringe ainda mais esse acesso.
 
-Docker
- - Containerização (opcional)
+O painel usa o fluxo editorial do Decap: salvar rascunho, revisar e publicar. Para um novo trabalho aparecer, marque também **Exibir no site**. Após publicar, aguarde o fluxo de implantação terminar no GitHub Actions. Não altere o endereço de uma tatuagem já publicada sem criar um redirecionamento para o endereço anterior.
 
----
+Imagens enviadas são arquivos públicos do site. Não envie documentos pessoais ou imagens confidenciais. A marcação de rascunho controla a presença do trabalho nas páginas e no sitemap; não torna os arquivos de mídia privados.
 
-##📦 Uso com Docker
-# Build da imagem
-```bash
-docker build -t rtg-tattoo .
-```
-# Executar container
-```bash
-docker run -p 8501:8501 rtg-tattoo
-```
----
-## 🎯 Como Usar
+A demonstração em `/admin/demo.html` usa o backend oficial em memória do Decap: não escreve no GitHub e perde as alterações ao recarregar. O painel real não faz login em origens de prévia para evitar alterações acidentais na produção.
 
-Faça upload de uma foto da área onde deseja a tatuagem
+## Publicação e integrações
 
-Faça upload do design da tatuagem (PNG com fundo transparente)
+Siga [o guia de ativação](docs/ativacao.md). Nenhuma conta nova, domínio ou integração é ativada automaticamente pelo build.
 
-Ajuste posição, tamanho e rotação usando os controles
+O fluxo de produção fica desativado até configurar `RTG_PUBLISH_ENABLED=true` no GitHub. A postagem no Google depende também de `RTG_GOOGLE_ENABLED=true`, das credenciais próprias e da aprovação da API. Os trabalhos importados estão com a postagem no Google desligada.
 
-Visualize o resultado em tempo real
+O arquivo `vercel.json` permite gerar a parte estática na Vercel durante a transição, mas a autenticação em `worker/index.mjs` requer Cloudflare Workers. A publicação completa usa `wrangler.jsonc`.
 
-Baixe a imagem final quando estiver satisfeito
-```bash
-📂 Estrutura do Projeto
-RTG-Tattoo/
-├── main.py                 # Aplicação principal Streamlit
-├── requirements.txt        # Dependências do projeto
-├── Dockerfile              # Configuração do container Docker
-├── .gitignore              # Arquivos ignorados pelo Git
-├── LICENSE                 # Licença MIT
-└── images/                 # Diretório para imagens de exemplo
-    ├── body_sample.jpg     # Exemplo de imagem corporal
-    └── tattoo_sample.png   # Exemplo de design de tatuagem
-```
+## Busca e privacidade
 
----
-## 🤝 Como Contribuir
+O build produz HTML estático, metadados por página, URLs canônicas, dados estruturados do estúdio, sitemap de páginas e imagens e `robots.txt`. Nenhuma dessas medidas garante indexação ou posição específica no Google.
 
-Contribuições são sempre bem-vindas! Para contribuir:
-
-Faça um Fork do projeto
-
-Crie uma Branch para sua Feature
-```bash
-git checkout -b feature/AmazingFeature
-```
-
-Adicione suas mudanças
-```bash
-git add .
-```
-
-Faça o Commit
-```bash
-git commit -m 'Add AmazingFeature'
-```
-
-Faça o Push
-```bash
-git push origin feature/AmazingFeature
-```
-
-Abra um Pull Request 🎉
-
----
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT.
-Veja o arquivo LICENSE
- para mais detalhes.
-
----
-
-## 📞 Contato
-
-### 👤 Alex Ritzmann
-
-[LinkedIn](https://www.linkedin.com/in/alexritzmann/)
-
-📌 Link do Projeto: [RTG Tattoo](https://www.rtgtattoo.com.br/)
-
----
-
-
-
-
-Quer que eu já prepare também um **`requirements.txt` inicial** com as dependências que você citou (
-git clone https://github.com/alexritzmann/RTG-Tattoo.git
-cd RTG-Tattoo
+Esta versão não carrega os scripts antigos de Google Analytics, Clarity ou o widget de avaliações. O formulário prepara uma mensagem localmente e abre o WhatsApp; o visitante confirma o envio no próprio WhatsApp. Antes de reativar ferramentas de medição, revisar as informações de privacidade e a configuração de consentimento aplicável.

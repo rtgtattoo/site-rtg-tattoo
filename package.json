@@ -1,0 +1,17 @@
+{
+  "name": "rtg-tattoo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "deploy": "npm run build && npx wrangler deploy"
+  },
+  "devDependencies": {
+    "sharp": "0.35.5",
+    "wrangler": "4.155.0"
+  }
+}
