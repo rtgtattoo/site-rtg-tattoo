@@ -1,7 +1,15 @@
 {
-  "slug": "aguia", "title": "Águia em preto", "published": true, "featured": true, "order": 3,
-  "category": "Ilustração", "image": "/assets/images/aguia.jpg",
   "alt": "Tatuagem de uma águia no braço, com penas detalhadas e elementos gráficos",
+  "slug": "aguia",
+  "featured": true,
+  "published": true,
+  "order": 3,
+  "title": "Águia em preto",
+  "google": {
+    "enabled": true,
+    "text": ""
+  },
+  "image": "/assets/images/aguia.jpg",
   "description": "Águia em preto com detalhes nas penas e elementos gráficos ao redor. Uma composição que ocupa o braço, realizada no estúdio RTG Tattoo, em Joinville.",
-  "google": {"enabled": false, "text": ""}
+  "category": "Ilustração"
 }
