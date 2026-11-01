@@ -1,7 +1,15 @@
 {
-  "slug": "ramo-de-folhas", "title": "Ramo de folhas", "published": true, "featured": true, "order": 2,
-  "category": "Botânica", "image": "/assets/images/ramo folhas.jpg",
   "alt": "Tatuagem de um ramo de folhas em preto no punho e na mão",
+  "slug": "ramo-de-folhas",
+  "featured": true,
+  "published": true,
+  "order": 2,
+  "title": "Ramo de folhas",
+  "google": {
+    "enabled": true,
+    "text": ""
+  },
+  "image": "/assets/images/ramo folhas.jpg",
   "description": "Um ramo de folhas acompanha o movimento do punho e da mão. Uma composição botânica do portfólio da RTG Tattoo, em Joinville.",
-  "google": {"enabled": false, "text": ""}
+  "category": "Botânica"
 }
