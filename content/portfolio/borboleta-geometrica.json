@@ -1,7 +1,15 @@
 {
-  "slug": "borboleta-geometrica", "title": "Borboleta geométrica", "published": true, "featured": true, "order": 1,
-  "category": "Ilustração", "image": "/assets/images/borboleta.jpg",
   "alt": "Tatuagem de borboleta com formas geométricas, lua e pequenos ramos no antebraço",
+  "slug": "borboleta-geometrica",
+  "featured": true,
+  "published": true,
+  "order": 1,
+  "title": "Borboleta geométrica",
+  "google": {
+    "enabled": true,
+    "text": "Uma borboleta que combina formas orgânicas e geométricas, acompanhada de lua, pequenos ramos e detalhes em preto. Trabalho realizado na RTG Tattoo, em Joinville."
+  },
+  "image": "/assets/images/borboleta.jpg",
   "description": "Uma borboleta que combina formas orgânicas e geométricas, acompanhada de lua, pequenos ramos e detalhes em preto. Trabalho realizado na RTG Tattoo, em Joinville.",
-  "google": {"enabled": false, "text": ""}
+  "category": "Ilustração"
 }
