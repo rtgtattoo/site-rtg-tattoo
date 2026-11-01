@@ -53,6 +53,8 @@ Siga [o guia de ativação](docs/ativacao.md). Nenhuma conta nova, domínio ou i
 
 O fluxo de produção fica desativado até configurar `RTG_PUBLISH_ENABLED=true` no GitHub. A postagem no Google depende também de `RTG_GOOGLE_ENABLED=true`, das credenciais próprias e da aprovação da API. Os trabalhos importados estão com a postagem no Google desligada.
 
+Com a integração ativa, a opção **Publicar foto e postagem no Google após publicar o site** envia a foto JPG à galeria do Perfil da Empresa (categoria adicional) e cria ou atualiza uma postagem com texto e link. Galeria e postagens são destinos distintos. A galeria é consultada por completo e comparada pela URL de origem da foto antes de novos envios, evitando reenviar o mesmo arquivo a cada publicação do site. Uma foto substituída tem outra URL e entra como nova imagem; não apagamos fotos anteriores nem fotos enviadas manualmente. Desmarcar a opção também não exclui conteúdo do Google. O log registra o estado e o link da postagem retornados pela API; sucesso do envio não garante destaque ou exibição imediata em todas as buscas.
+
 O arquivo `vercel.json` permite gerar a parte estática na Vercel durante a transição, mas a autenticação em `worker/index.mjs` requer Cloudflare Workers. A publicação completa usa `wrangler.jsonc`.
 
 ## Busca e privacidade

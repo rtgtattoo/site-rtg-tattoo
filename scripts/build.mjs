@@ -88,7 +88,7 @@ export async function build() {
   await writeFile(path.join(output,'sitemap.xml'),sitemap);
   await writeFile(path.join(output,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
   await writeFile(path.join(output,'404.html'),`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Página não encontrada | RTG Tattoo</title><link rel="stylesheet" href="/assets/css/site.css"></head><body><main class="wrap privacy"><p class="eyebrow">RTG Tattoo · 404</p><h1>Esse caminho<br>ainda não foi traçado.</h1><p>A página pode ter mudado de endereço.</p><a class="button" href="/">Voltar ao estúdio ↗</a></main></body></html>`);
-  await writeFile(path.join(output,'google-posts.json'),JSON.stringify(works.filter(w=>w.google?.enabled).map(w=>({slug:w.slug,url:ORIGIN+`/portfolio/${w.slug}/`,summary:w.google.text?.trim() || w.description,image:ORIGIN+pictures.get(w.image).google})),null,2));
+  await writeFile(path.join(output,'google-posts.json'),JSON.stringify(works.filter(w=>w.google?.enabled).map(w=>({slug:w.slug,title:w.title,url:ORIGIN+`/portfolio/${w.slug}/`,summary:w.google.text?.trim() || w.description,image:ORIGIN+pictures.get(w.image).google})),null,2));
   const imageBytes = (await Promise.all((await readdir(mediaDir)).map(async f=>(await stat(path.join(mediaDir,f))).size))).reduce((a,b)=>a+b,0);
   console.log(`Site gerado: ${urls.length} páginas, ${works.length} trabalhos publicados, ${allWorks.length-works.length} rascunhos. Imagens responsivas: ${(imageBytes/1024/1024).toFixed(2)} MB no total.`);
   return {site,works,pictures};

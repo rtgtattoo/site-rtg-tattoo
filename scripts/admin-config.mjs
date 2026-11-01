@@ -40,7 +40,7 @@ export const adminConfig = {
       field('alt','Descrição visual da foto','string',{hint:'Descreva a imagem para quem não consegue vê-la.'}),
       text('description','Sobre o trabalho'),
       object('google','Publicação no Perfil da Empresa',[
-        field('enabled','Publicar também no Google após publicar o site','boolean',{default:false,hint:'Depende da conexão e aprovação da API do Google. A opção não ativa a integração sozinha.'}),
+        field('enabled','Publicar foto e postagem no Google após publicar o site','boolean',{default:false,hint:'Envia a foto à galeria e cria ou atualiza uma postagem com texto e link. Depende da integração ativa e do processamento e aprovação do Google.'}),
         field('text','Texto da postagem','text',{required:false,hint:'Opcional. Se vazio, será usada a descrição do trabalho.'})
       ],{required:false})
     ]

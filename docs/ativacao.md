@@ -4,7 +4,7 @@
 
 Estado confirmado em 29/10/2026: domínio ativo na conta Cloudflare do estúdio, novo site respondendo HTTP 200 em `https://www.rtgtattoo.com.br/`, MX públicos mantidos na Umbler. OAuth App GitHub criado pelo proprietário na conta `rtgtattoo`; os segredos `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` e `OAUTH_SESSION_SECRET` constam no Worker. O proprietário confirmou por imagem o login no painel com as coleções carregadas. Ainda falta validar separadamente o acesso da segunda conta e a primeira edição de conteúdo.
 
-Publicação automática habilitada: os repository secrets `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` foram cadastrados pelo proprietário no GitHub; a variável `RTG_PUBLISH_ENABLED=true` foi configurada. O workflow de produção foi disparado e concluiu testes, build e deploy com sucesso em https://github.com/rtgtattoo/site-rtg-tattoo/actions/runs/40944371369. A sincronização Google continua desligada até configurar e testar suas credenciais e aprovação de acesso à API.
+Publicação automática habilitada: os repository secrets `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` foram cadastrados pelo proprietário no GitHub; a variável `RTG_PUBLISH_ENABLED=true` foi configurada. O workflow de produção foi disparado e concluiu testes, build e deploy com sucesso em https://github.com/rtgtattoo/site-rtg-tattoo/actions/runs/40944371369. Em 01/11/2026, a sincronização Google foi habilitada após aprovação do projeto `108628869611`, configuração OAuth em produção e cadastro das credenciais no GitHub. O perfil conectado é Studio RTG Tattoo, `accounts/107019813777818724045/locations/364322537628719452`. A API confirmou as postagens da borboleta e da águia como `LIVE`; a consulta foi feita pelo proprietário via OAuth Playground.
 
 - Usar uma conta Cloudflare própria do estúdio, conforme escolha do proprietário. A sessão pessoal do EasyService não deve receber a implantação da RTG. O Gmail informado para o estúdio é `studio.rtgtattoo@gmail.com`.
 - Conta do estúdio criada e confirmada pelo proprietário: `3728edb114cfcc55c7131954f95d954f`, fixada em `wrangler.jsonc`, com o domínio `rtgtattoo.com.br` ativo.
@@ -111,6 +111,8 @@ Configurar GitHub Actions Variables:
 - `RTG_GOOGLE_ENABLED`: `true`, somente após o teste real da integração.
 
 No painel, selecionar um trabalho autorizado e marcar a publicação no Google. A sincronização é executada depois do deploy e confere se o manifesto, a página e a imagem já estão disponíveis no domínio. Consulta postagens existentes pelo link do trabalho para evitar criar uma postagem nova em cada execução. Não faz novas tentativas automáticas de criação em caso de erro de rede; investigar o resultado na API antes de repetir.
+
+A mesma opção envia a foto à galeria além da postagem. O build prepara JPG para a integração, preservando WebP no site. A galeria é consultada com paginação antes de qualquer escrita e fotos com a mesma URL de origem não são reenviadas. Fotos substituídas entram como novas imagens; não são removidas as versões anteriores nem fotos manuais. O envio à galeria e a postagem são operações separadas: uma pode funcionar antes de a outra falhar. Nesse caso, conferir ambos os destinos antes de repetir. Os logs mostram o estado (`LIVE`, `PROCESSING`, `REJECTED` etc.) e o link direto da postagem quando retornados pelo Google. Criação aceita pela API não deve ser confundida com exibição pública confirmada.
 
 ```sh
 node scripts/sync-google.mjs --dry-run
